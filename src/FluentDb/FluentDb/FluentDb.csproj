@@ -4,12 +4,12 @@
     <TargetFrameworks>netstandard2.0;net462;net452</TargetFrameworks>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Company>Fintech</Company>
-    <Version>1.0.3</Version>
+    <Version>1.0.5</Version>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-    <PackageTags>Fintech FTLab FluentDb</PackageTags>
+    <PackageTags>FluentDb FTLab Fintech</PackageTags>
     <RepositoryType />
     <RepositoryUrl></RepositoryUrl>
-    <Description>Fintech FTLab FluentDb</Description>
+    <Description>FluentDb FTLab Fintech</Description>
     <Authors>FTLab</Authors>
     <PackageProjectUrl>https://github.com/ftlab/FluentDb</PackageProjectUrl>
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\FluentDb.xml</DocumentationFile>
