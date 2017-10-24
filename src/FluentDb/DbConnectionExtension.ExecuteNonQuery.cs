@@ -19,7 +19,10 @@ namespace FluentDb
         {
             if (con == null) throw new ArgumentNullException(nameof(con));
             using (var cmd = con.CreateCommand())
+            {
                 init?.Invoke(cmd);
+                cmd.ExecuteNonQuery();
+            }
             return con;
         }
 

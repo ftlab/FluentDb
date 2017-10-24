@@ -5,8 +5,17 @@ using System.Text;
 
 namespace FluentDb
 {
+    /// <summary>
+    /// методы расширяющие Enumerable
+    /// </summary>
     public static class EnumerableExtension
     {
+        /// <summary>
+        /// Вернуть как считыватель
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="items"></param>
+        /// <returns></returns>
         public static IDataReader AsDataReader<T>(this IEnumerable<T> items)
         {
             return new DataReader<T>(items.GetEnumerator());
