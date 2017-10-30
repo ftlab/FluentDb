@@ -1,12 +1,11 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netcoreapp2.0;net462;net452</TargetFrameworks>
+    <TargetFrameworks>net462;net452</TargetFrameworks>
     <IsPackable>false</IsPackable>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.3.0" />
     <PackageReference Include="MSTest.TestAdapter" Version="1.2.0" />
     <PackageReference Include="MSTest.TestFramework" Version="1.2.0" />
     <PackageReference Include="System.Data.Common" Version="4.3.0" />
@@ -14,8 +13,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\FluentDb.Sql\FluentDb.Sql.csproj" />
     <ProjectReference Include="..\FluentDb\FluentDb.csproj" />
   </ItemGroup>
+
 
 </Project>

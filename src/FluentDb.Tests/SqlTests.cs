@@ -1,7 +1,7 @@
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+
 using System.Data.SqlClient;
-using FluentDb;
 using System.Data;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace FluentDb.Tests
 {
