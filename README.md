@@ -1,9 +1,20 @@
-## Welcome to GitHub Pages
+# Welcome to FluentDb
 
-You can use the [editor on GitHub](https://github.com/ftlab/FluentDb/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
+- [Home](https://github.com/ftlab/FluentDb)
+- [NuGet Package](https://www.nuget.org/packages/FluentDb)
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
-
+```cs
+using (var db = CreateConnection())
+{
+  db.Connect();
+    db.ExecuteNonQuery(cmd =>
+      cmd.SetCommandText("SELECT @Id, @Code")
+         .SetCommandTimeout(TimeSpan.FromSeconds(5))
+         .AddParameter("Id", 0L)
+         .AddParameter(p => p.SetName("Code")
+                             .SetDbType(DbType.String)
+                             .SetValue("Hello")));
+```
 ### Markdown
 
 Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
