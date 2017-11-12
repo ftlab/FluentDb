@@ -1,4 +1,6 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
+using System.Data;
 using System.Data.SQLite;
 using System.Linq;
 
@@ -37,7 +39,12 @@ namespace FluentDb.Tests
                 db.Connect();
 
                 db.ExecuteNonQuery(cmd =>
-                    cmd.SetCommandText("SELECT 1"));
+                    cmd.SetCommandText("SELECT @Id, @Code")
+                    .SetCommandTimeout(TimeSpan.FromSeconds(5))
+                    .AddParameter("Id", 0L)
+                    .AddParameter(p => p.SetName("Code")
+                                        .SetDbType(DbType.String)
+                                        .SetValue("Hello")));
 
                 db.ExecuteNonQuery("select 1");
 

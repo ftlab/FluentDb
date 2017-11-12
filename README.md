@@ -1,12 +1,23 @@
 # Welcome to FluentDb
 
-- [Home](https://github.com/ftlab/FluentDb)
+Данная сборка предоставляет  методы расширяющие объекты ADO.NET
+
+- [Home](https://github.com/ftlab)
 - [NuGet Package](https://www.nuget.org/packages/FluentDb)
 
+1. Пример использования 1
 ```cs
 using (var db = CreateConnection())
 {
-  db.Connect();
+	db.Connect();
+	var value = db.ExecuteScalar<string>("SELECT @Name", new { Name = "World" });
+}
+```
+2. Пример использования 2
+```cs
+using (var db = CreateConnection())
+{
+	db.Connect();
     db.ExecuteNonQuery(cmd =>
       cmd.SetCommandText("SELECT @Id, @Code")
          .SetCommandTimeout(TimeSpan.FromSeconds(5))
@@ -14,7 +25,9 @@ using (var db = CreateConnection())
          .AddParameter(p => p.SetName("Code")
                              .SetDbType(DbType.String)
                              .SetValue("Hello")));
+}
 ```
+
 ### Markdown
 
 Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
