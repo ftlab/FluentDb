@@ -49,6 +49,12 @@ namespace FluentDb.Tests
                 db.ExecuteNonQuery("select 1");
 
                 db.ExecuteNonQuery("select @Code, @Name", new { Code = "Code", Name = "Name" });
+
+                db.ExecuteNonQuery("CREATE TABLE MYTABLE(Id, Code)");
+
+                db.ExecuteNonQuery(
+                    cmdText: "INSERT INTO MYTABLE VALUES (@Id, @Code)"
+                    , bag: new { Id = 1, Code = "Код" });
             }
         }
 
@@ -108,8 +114,18 @@ namespace FluentDb.Tests
                 Assert.AreEqual("Hello", rows[0].Value);
                 Assert.AreEqual(2L, rows[1].Id);
                 Assert.AreEqual("World", rows[1].Value);
+
+                var entities = db.AsEnumerable<Entity>(
+                    commandText: "SELECT 1 as Id, 'Hello' as Name")
+                    .ToArray();
+
+                Assert.AreEqual(1, entities.Length);
+                Assert.AreEqual(1L, entities[0].Id);
+                Assert.AreEqual("Hello", entities[0].Name);
             }
         }
+
+        public class Entity { public long Id; public string Name; }
 
     }
 }
