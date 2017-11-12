@@ -45,7 +45,6 @@ namespace FluentDb
         /// <param name="reader">считыватель</param>
         /// <returns>перечислимое</returns>
         public static IEnumerable<T> AsEnumerable<T>(this IDataReader reader)
-            where T : new()
         {
             var fields = Enumerable
                 .Range(0, reader.FieldCount)
@@ -62,22 +61,20 @@ namespace FluentDb
 
             foreach (var record in reader.AsEnumerable())
             {
-                T instance = new T();
+                T instance = Activator.CreateInstance<T>();
                 foreach (var member in members)
                 {
                     var value = reader[member.Name];
                     if (Convert.IsDBNull(value))
                         value = null;
 
-                    var prop = member as PropertyInfo;
-                    if (prop != null)
+                    if (member is PropertyInfo prop)
                     {
                         prop.SetValue(instance, value);
                         continue;
                     }
 
-                    var field = member as FieldInfo;
-                    if (field != null)
+                    if (member is FieldInfo field)
                     {
                         field.SetValue(instance, value);
                         continue;

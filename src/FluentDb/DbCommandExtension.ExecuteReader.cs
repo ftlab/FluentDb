@@ -16,7 +16,7 @@ namespace FluentDb
         /// <param name="cmd"></param>
         /// <param name="behavior"></param>
         /// <returns></returns>
-        public static IEnumerable<IDataRecord> ExecuteReader(this DbCommand cmd
+        public static IEnumerable<IDataRecord> AsEnumerable(this DbCommand cmd
             , CommandBehavior behavior = CommandBehavior.Default)
         {
             if (cmd == null) throw new ArgumentNullException(nameof(cmd));
@@ -32,7 +32,7 @@ namespace FluentDb
         /// <param name="map"></param>
         /// <param name="behavior"></param>
         /// <returns></returns>
-        public static IEnumerable<T> ExecuteReader<T>(this DbCommand cmd
+        public static IEnumerable<T> AsEnumerable<T>(this DbCommand cmd
             , Func<IDataRecord, T> map
             , CommandBehavior behavior = CommandBehavior.Default)
         {
@@ -40,8 +40,25 @@ namespace FluentDb
             if (map == null) throw new ArgumentNullException(nameof(map));
 
             using (var reader = cmd.ExecuteReader(behavior))
-                foreach (IDataRecord record in reader.AsEnumerable())
-                    yield return map(record);
+                foreach (var record in reader.AsEnumerable(map))
+                    yield return record;
+        }
+
+        /// <summary>
+        /// Исполняет запрос и возвращает итератор с записями
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="cmd"></param>
+        /// <param name="behavior"></param>
+        /// <returns></returns>
+        public static IEnumerable<T> AsEnumerable<T>(this DbCommand cmd
+            , CommandBehavior behavior = CommandBehavior.Default)
+        {
+            if (cmd == null) throw new ArgumentNullException(nameof(cmd));
+
+            using (var reader = cmd.ExecuteReader(behavior))
+                foreach (var record in reader.AsEnumerable<T>())
+                    yield return record;
         }
     }
 }
